@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+let data = [
+    "我的音乐",
+    "我的课程",
+    "新建文件夹",
+    "新建文件夹(3)"
+];
+/*
+  "新建文件夹",
+  "新建文件夹(2)",
+  "新建文件夹(3)"
+   规律1：新建文件夹
+   规律2：新建文件夹( 、number>=2、)
+
+
+   "新建文件夹","新建文件夹(2)", "新建文件夹(3)",
+
+*/
+document.onclick = function(){
+    console.log(data);
+    let names = data.filter(item=>{
+        if(item === "新建文件夹"){
+            return true;
+        }
+        if(
+            item.substring(0,6) === "新建文件夹("
+            &&Number(item.substring(6,item.length-1))>=2
+            &&item[item.length-1] == ")"
+        ){
+            return true;
+        }
+        return false;
+    });
+    names.sort((n1,n2)=>{
+        n1 =  n1.substring(6,n1.length-1);
+        n2 =  n2.substring(6,n2.length-1);
+        n1 = isNaN(n1)?0:n1;
+        n2 = isNaN(n2)?0:n2;
+        return n1 - n2;
+    });
+    if(names[0]!=="新建文件夹"){
+        data.push("新建文件夹");
+        return ;
+    }
+    for(let i = 1; i < names.length; i++){
+        if(Number(names[i].substring(6,names[i].length-1)) !== i+1){
+            data.push(`新建文件夹(${i + 1})` );
+            return;
+        }
+    }
+    data.push(`新建文件夹(${names.length + 1})` );
+};        
+</script>    
+</body>
+</html>

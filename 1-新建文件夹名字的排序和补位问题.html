@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<script>
+let data = [
+    "我的音乐",
+    "我的课程"
+];
+/*
+  "新建文件夹",
+  "新建文件夹(2)",
+  "新建文件夹(3)"
+   规律1：新建文件夹
+   规律2：新建文件夹( 、number>=2、)
+
+*/
+document.onclick = function(){
+    let names = data.filter(item=>{
+        if(item === "新建文件夹"){
+            return true;
+        }
+        if(
+            item.substring(0,6) === "新建文件夹("
+            &&Number(item.substring(6,item.length-1))>=2
+            &&item[item.length-1] == ")"
+        ){
+            return true;
+        }
+        return false;
+    });
+    if(names.length < 1){
+        data.push("新建文件夹");
+    } else {
+        data.push(`新建文件夹(${names.length + 1})` );
+    }
+    console.log(data);
+};        
+</script>    
+</body>
+</html>
